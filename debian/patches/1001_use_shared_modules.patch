@@ -1,0 +1,25 @@
+Description: Use system modules as default resolved paths
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2020-04-22
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/lib/util/get-resolve-paths.js
++++ b/lib/util/get-resolve-paths.js
+@@ -4,7 +4,7 @@
+  */
+ "use strict"
+ 
+-const DEFAULT_VALUE = Object.freeze([])
++const DEFAULT_VALUE = Object.freeze(["/usr/share/nodejs", "/usr/lib/nodejs"])
+ 
+ /**
+  * Gets `resolvePaths` property from a given option object.
+@@ -24,7 +24,7 @@
+  *
+  * 1. This checks `options` property, then returns it if exists.
+  * 2. This checks `settings.node` property, then returns it if exists.
+- * 3. This returns `[]`.
++ * 3. This returns `["/usr/share/nodejs", "/usr/lib/nodejs"]`.
+  *
+  * @param {RuleContext} context - The rule context.
+  * @returns {string[]} A list of extensions.

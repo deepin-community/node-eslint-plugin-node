@@ -1,0 +1,198 @@
+node-eslint-plugin-node (11.1.0~ds-4) unstable; urgency=medium
+
+  * fix have autopkgtest depend on nodejs
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 27 Dec 2020 05:17:28 +0100
+
+node-eslint-plugin-node (11.1.0~ds-3) unstable; urgency=medium
+
+  * add patch 1002
+    to comply with @mysticatea/eslint-plugin/meta-property-ordering;
+    closes: bug#978362, thanks to Lucas Nussbaum
+  * use debhelper compatibility level 13 (not 12)
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 27 Dec 2020 03:20:27 +0100
+
+node-eslint-plugin-node (11.1.0~ds-2) unstable; urgency=medium
+
+  * fix upstream URLs
+  * fix stop build-depend on itself
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 16 Dec 2020 14:32:56 +0100
+
+node-eslint-plugin-node (11.1.0~ds-1) unstable; urgency=medium
+
+  [ upstream ]
+  * new release(s)
+
+  [ Jonas Smedegaard ]
+  * update patch 2001
+  * tighten (build-)dependency on node-eslint-plugin-es
+
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 15 Dec 2020 01:24:27 +0100
+
+node-eslint-plugin-node (9.2.0~ds-2) unstable; urgency=medium
+
+  * fix depend (not only build-depend) on node-eslint-plugin-es
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 14 Dec 2020 15:16:45 +0100
+
+node-eslint-plugin-node (9.2.0~ds-1) unstable; urgency=medium
+
+  [ upstream ]
+  * new release(s)
+
+  [ Debian Janitor ]
+  * set upstream metadata fields:
+    Bug-Database Bug-Submit Repository Repository-Browse
+
+  [ Jonas Smedegaard ]
+  * update files excluded when repackaging upstream tarball
+  * modernize source script copyright-check
+  * copyright: update coverage
+  * update build routines
+  * support DEB_BUILD_OPTIONS=terse
+  * drop patch cherry-picked upstream now applied
+  * drop patch 2002; build-depend on node-fast-glob
+  * update and unfuzz patches
+  * fix build-depend (not depend) on nodejs
+  * declare compliance with Debian Policy 4.5.1
+  * drop patches 2003 2004
+    to avoid Nodejs modules eslint-plugin-es @mysticatea/eslint-plugin;
+    build-depend on node-eslint-plugin-es node-eslint-plugin-node
+    node-mysticatea-eslint-plugin
+  * update patch 1001 to use double-quotes (not single-quotes)
+  * update workarounds for failing tests
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 14 Dec 2020 15:07:46 +0100
+
+node-eslint-plugin-node (8.0.1~ds-3) unstable; urgency=medium
+
+  * add patch 1001 to use system modules as default resolved paths
+  * re-enable rules no-missing-import no-missing-require;
+    closes: bug#954227
+  * fix helper script tap-todo counting,
+    and emit error message on failure
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 22 Apr 2020 17:35:46 +0200
+
+node-eslint-plugin-node (8.0.1~ds-2) unstable; urgency=medium
+
+  * fix have helper script tap-todo fail if no tests were run
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 20 Apr 2020 16:38:17 +0200
+
+node-eslint-plugin-node (8.0.1~ds-1) experimental; urgency=medium
+
+  [ upstream ]
+  * new release
+
+  [ Jonas Smedegaard ]
+  * copyright: update paths of excluded files
+  * watch: use repacksuffix=~ds
+    (not ~dfsg: only generated files stripped, no violations)
+  * fix mangle lib/index.js (accidentally skipped in 8.0.0-1);
+    avoid mangling README
+  * update patch 2003
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 19 Apr 2020 17:32:24 +0200
+
+node-eslint-plugin-node (8.0.0~dfsg-1) experimental; urgency=medium
+
+  [ upstream ]
+  * new release(s)
+
+  [ Jonas Smedegaard ]
+  * unfuzz patch
+  * (build-)depend on node-eslint-utils
+  * rules: update code paths
+  * enable check tests for rules
+    no-deprecated-api no-unsupported-features, now working
+  * add patches 2002 2003 2004 to avoid node modules
+    fast-glob eslint-plugin-es @mysticatea/eslint-plugin
+  * avoid check tests for rules
+    no-unsupported-features/es-builtins
+    no-unsupported-features/es-syntax
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 19 Apr 2020 16:55:13 +0200
+
+node-eslint-plugin-node (6.0.1~dfsg-4) unstable; urgency=medium
+
+  * use helper script tap-todo;
+    build-depend on perl
+  * copyright: extend coverage
+  * add non-superficial autopkgtest
+  * mention in TODO file rules removed from recommended list
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 27 Mar 2020 13:05:36 +0100
+
+node-eslint-plugin-node (6.0.1~dfsg-3) unstable; urgency=medium
+
+  * enable eslint tests
+  * tighten mocha tests to disable default timeout
+  * use debhelper compatibility level 12 (not 10);
+    build-depend on debhelper-compat (not debhelper)
+  * stop build-depend on node-shelljs (unused despite metadata);
+    stop depend on node-object-assign (bogusly declared)
+  * fix explicitly build-depend on node-minimatch node-resolve
+  * skip only specific failing tests
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 25 Mar 2020 14:34:04 +0100
+
+node-eslint-plugin-node (6.0.1~dfsg-2) unstable; urgency=medium
+
+  * add patch cherry-picked upstream to fix test failing by acorn update
+  * strip from rules.js and recommended.json broken tests
+    no-missing-import no-missing-require
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 18 Mar 2020 20:58:07 +0100
+
+node-eslint-plugin-node (6.0.1~dfsg-1) unstable; urgency=medium
+
+  [ upstream ]
+  * new release(s)
+
+  [ Jonas Smedegaard ]
+  * build-depend on eslint
+  * copyright: update coverage
+  * temporarily tolerate a few known failing tests
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 18 Mar 2020 17:19:29 +0100
+
+node-eslint-plugin-node (5.2.1~dfsg-3) unstable; urgency=medium
+
+  * declare compliance with Debian Policy 4.5.0
+  * temporarily stop build-depend on eslint
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 18 Mar 2020 15:53:20 +0100
+
+node-eslint-plugin-node (5.2.1~dfsg-2) experimental; urgency=medium
+
+  * drop obsolete lintian override for unversioned debhelper 10
+  * fix clean generated docs
+  * improve short description
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 30 Nov 2019 10:45:44 +0100
+
+node-eslint-plugin-node (5.2.1~dfsg-1) experimental; urgency=medium
+
+  [ upstream ]
+  * New release(s).
+
+  [ Jonas Smedegaard ]
+  * Update copyright info:
+    + Exclude files during build.
+    + Extend coverage for main copyright holder.
+  * Update watch file: Fix URL.
+  * Update build rule, and list of files to clean.
+  * Unfuzz patch.
+  * Update files to install.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 19 Oct 2019 14:00:47 +0200
+
+node-eslint-plugin-node (4.2.2-1) experimental; urgency=low
+
+  * Initial release.
+    Closes: Bug#942574.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 18 Oct 2019 13:13:42 +0200

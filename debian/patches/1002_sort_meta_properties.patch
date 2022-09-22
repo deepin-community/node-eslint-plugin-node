@@ -1,0 +1,827 @@
+Description: comply with @mysticatea/eslint-plugin/meta-property-ordering
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2020-12-27
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/lib/rules/callback-return.js
++++ b/lib/rules/callback-return.js
+@@ -6,7 +6,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "require `return` statements after callbacks",
+             category: "Stylistic Issues",
+@@ -14,16 +13,17 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/callback-return.md",
+         },
++        fixable: null,
++        messages: {
++            missingReturn: "Expected return with your callback function.",
++        },
+         schema: [
+             {
+                 type: "array",
+                 items: { type: "string" },
+             },
+         ],
+-        fixable: null,
+-        messages: {
+-            missingReturn: "Expected return with your callback function.",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/exports-style.js
++++ b/lib/rules/exports-style.js
+@@ -148,7 +148,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/exports-style.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+         schema: [
+             {
+@@ -161,6 +160,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/global-require.js
++++ b/lib/rules/global-require.js
+@@ -49,7 +49,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description:
+                 "require `require()` calls to be placed at top-level module scope",
+@@ -59,10 +58,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/global-require.md",
+         },
+         fixable: null,
+-        schema: [],
+         messages: {
+             unexpected: "Unexpected require().",
+         },
++        schema: [],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/handle-callback-err.js
++++ b/lib/rules/handle-callback-err.js
+@@ -6,7 +6,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "require error handling in callbacks",
+             category: "Possible Errors",
+@@ -15,14 +14,15 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/handle-callback-err.md",
+         },
+         fixable: null,
++        messages: {
++            expected: "Expected error to be handled.",
++        },
+         schema: [
+             {
+                 type: "string",
+             },
+         ],
+-        messages: {
+-            expected: "Expected error to be handled.",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-callback-literal.js
++++ b/lib/rules/no-callback-literal.js
+@@ -14,9 +14,9 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-callback-literal.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [],
++        type: "problem",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-deprecated-api.js
++++ b/lib/rules/no-deprecated-api.js
+@@ -688,7 +688,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-deprecated-api.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -720,6 +719,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const {
+--- a/lib/rules/no-extraneous-import.js
++++ b/lib/rules/no-extraneous-import.js
+@@ -21,7 +21,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-extraneous-import.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -35,6 +34,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-extraneous-require.js
++++ b/lib/rules/no-extraneous-require.js
+@@ -21,7 +21,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-extraneous-require.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -35,6 +34,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-hide-core-modules.js
++++ b/lib/rules/no-hide-core-modules.js
+@@ -50,6 +50,7 @@
+ 
+ module.exports = {
+     meta: {
++        deprecated: true,
+         docs: {
+             description:
+                 "disallow third-party modules which are hiding core modules",
+@@ -58,8 +59,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-hide-core-modules.md",
+         },
+-        type: "problem",
+-        deprecated: true,
+         fixable: null,
+         schema: [
+             {
+@@ -77,6 +76,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         if (context.getFilename() === "<input>") {
+--- a/lib/rules/no-missing-import.js
++++ b/lib/rules/no-missing-import.js
+@@ -20,7 +20,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-missing-import.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -33,6 +32,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-missing-require.js
++++ b/lib/rules/no-missing-require.js
+@@ -20,7 +20,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-missing-require.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -33,6 +32,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-mixed-requires.js
++++ b/lib/rules/no-mixed-requires.js
+@@ -67,7 +67,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description:
+                 "disallow `require` calls to be mixed with regular variable declarations",
+@@ -77,6 +76,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-mixed-requires.md",
+         },
+         fixable: null,
++        messages: {
++            noMixRequire: "Do not mix 'require' and other declarations.",
++            noMixCoreModuleFileComputed:
++                "Do not mix core, module, file and computed requires.",
++        },
+         schema: [
+             {
+                 oneOf: [
+@@ -98,11 +102,7 @@
+                 ],
+             },
+         ],
+-        messages: {
+-            noMixRequire: "Do not mix 'require' and other declarations.",
+-            noMixCoreModuleFileComputed:
+-                "Do not mix core, module, file and computed requires.",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-new-require.js
++++ b/lib/rules/no-new-require.js
+@@ -6,7 +6,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow `new` operators with calls to `require`",
+             category: "Possible Errors",
+@@ -15,10 +14,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-new-require.md",
+         },
+         fixable: null,
+-        schema: [],
+         messages: {
+             noNewRequire: "Unexpected use of new with require.",
+         },
++        schema: [],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-path-concat.js
++++ b/lib/rules/no-path-concat.js
+@@ -158,7 +158,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description:
+                 "disallow string concatenation with `__dirname` and `__filename`",
+@@ -168,11 +167,12 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-path-concat.md",
+         },
+         fixable: null,
+-        schema: [],
+         messages: {
+             usePathFunctions:
+                 "Use path.join() or path.resolve() instead of string concatenation.",
+         },
++        schema: [],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-process-env.js
++++ b/lib/rules/no-process-env.js
+@@ -10,7 +10,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow the use of `process.env`",
+             category: "Stylistic Issues",
+@@ -19,10 +18,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-process-env.md",
+         },
+         fixable: null,
+-        schema: [],
+         messages: {
+             unexpectedProcessEnv: "Unexpected use of process.env.",
+         },
++        schema: [],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-process-exit.js
++++ b/lib/rules/no-process-exit.js
+@@ -6,7 +6,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow the use of `process.exit()`",
+             category: "Possible Errors",
+@@ -15,10 +14,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-process-exit.md",
+         },
+         fixable: null,
+-        schema: [],
+         messages: {
+             noProcessExit: "Don't use process.exit(); throw an error instead.",
+         },
++        schema: [],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-restricted-import.js
++++ b/lib/rules/no-restricted-import.js
+@@ -9,7 +9,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow specified modules when loaded by `require`",
+             category: "Stylistic Issues",
+@@ -18,6 +17,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-restricted-import.md",
+         },
+         fixable: null,
++        messages: {
++            restricted:
++                // eslint-disable-next-line @mysticatea/eslint-plugin/report-message-format
++                "'{{name}}' module is restricted from being used.{{customMessage}}",
++        },
+         schema: [
+             {
+                 type: "array",
+@@ -47,11 +51,7 @@
+                 additionalItems: false,
+             },
+         ],
+-        messages: {
+-            restricted:
+-                // eslint-disable-next-line @mysticatea/eslint-plugin/report-message-format
+-                "'{{name}}' module is restricted from being used.{{customMessage}}",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-restricted-require.js
++++ b/lib/rules/no-restricted-require.js
+@@ -10,7 +10,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow specified modules when loaded by `require`",
+             category: "Stylistic Issues",
+@@ -19,6 +18,11 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-restricted-require.md",
+         },
+         fixable: null,
++        messages: {
++            restricted:
++                // eslint-disable-next-line @mysticatea/eslint-plugin/report-message-format
++                "'{{name}}' module is restricted from being used.{{customMessage}}",
++        },
+         schema: [
+             {
+                 type: "array",
+@@ -48,11 +52,7 @@
+                 additionalItems: false,
+             },
+         ],
+-        messages: {
+-            restricted:
+-                // eslint-disable-next-line @mysticatea/eslint-plugin/report-message-format
+-                "'{{name}}' module is restricted from being used.{{customMessage}}",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-sync.js
++++ b/lib/rules/no-sync.js
+@@ -6,7 +6,6 @@
+ 
+ module.exports = {
+     meta: {
+-        type: "suggestion",
+         docs: {
+             description: "disallow synchronous methods",
+             category: "Stylistic Issues",
+@@ -15,6 +14,9 @@
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-sync.md",
+         },
+         fixable: null,
++        messages: {
++            noSync: "Unexpected sync method: '{{propertyName}}'.",
++        },
+         schema: [
+             {
+                 type: "object",
+@@ -27,9 +29,7 @@
+                 additionalProperties: false,
+             },
+         ],
+-        messages: {
+-            noSync: "Unexpected sync method: '{{propertyName}}'.",
+-        },
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/no-unpublished-bin.js
++++ b/lib/rules/no-unpublished-bin.js
+@@ -38,7 +38,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unpublished-bin.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -49,6 +48,7 @@
+                 },
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         return {
+--- a/lib/rules/no-unpublished-import.js
++++ b/lib/rules/no-unpublished-import.js
+@@ -21,7 +21,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unpublished-import.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -35,6 +34,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-unpublished-require.js
++++ b/lib/rules/no-unpublished-require.js
+@@ -21,7 +21,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unpublished-require.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [
+             {
+@@ -35,6 +34,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const filePath = context.getFilename()
+--- a/lib/rules/no-unsupported-features.js
++++ b/lib/rules/no-unsupported-features.js
+@@ -1041,6 +1041,7 @@
+ 
+ module.exports = {
+     meta: {
++        deprecated: true,
+         docs: {
+             description:
+                 "disallow unsupported ECMAScript features on the specified version",
+@@ -1053,8 +1054,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unsupported-features.md",
+         },
+-        type: "problem",
+-        deprecated: true,
+         fixable: null,
+         schema: [
+             {
+@@ -1076,6 +1075,7 @@
+                 ],
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const sourceCode = context.getSourceCode()
+--- a/lib/rules/no-unsupported-features/es-builtins.js
++++ b/lib/rules/no-unsupported-features/es-builtins.js
+@@ -144,8 +144,11 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unsupported-features/es-builtins.md",
+         },
+-        type: "problem",
+         fixable: null,
++        messages: {
++            unsupported:
++                "The '{{name}}' is not supported until Node.js {{supported}}. The configured version range is '{{version}}'.",
++        },
+         schema: [
+             {
+                 type: "object",
+@@ -166,10 +169,7 @@
+                 additionalProperties: false,
+             },
+         ],
+-        messages: {
+-            unsupported:
+-                "The '{{name}}' is not supported until Node.js {{supported}}. The configured version range is '{{version}}'.",
+-        },
++        type: "problem",
+     },
+     create(context) {
+         return {
+--- a/lib/rules/no-unsupported-features/es-syntax.js
++++ b/lib/rules/no-unsupported-features/es-syntax.js
+@@ -505,26 +505,7 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unsupported-features/es-syntax.md",
+         },
+-        type: "problem",
+         fixable: null,
+-        schema: [
+-            {
+-                type: "object",
+-                properties: {
+-                    version: {
+-                        type: "string",
+-                    },
+-                    ignores: {
+-                        type: "array",
+-                        items: {
+-                            enum: Object.keys(features),
+-                        },
+-                        uniqueItems: true,
+-                    },
+-                },
+-                additionalProperties: false,
+-            },
+-        ],
+         messages: {
+             //------------------------------------------------------------------
+             // ES2015
+@@ -630,6 +611,25 @@
+             "no-dynamic-import":
+                 "'import()' expressions are not supported yet.",
+         },
++        schema: [
++            {
++                type: "object",
++                properties: {
++                    version: {
++                        type: "string",
++                    },
++                    ignores: {
++                        type: "array",
++                        items: {
++                            enum: Object.keys(features),
++                        },
++                        uniqueItems: true,
++                    },
++                },
++                additionalProperties: false,
++            },
++        ],
++        type: "problem",
+     },
+     create(context) {
+         return defineVisitor(context, parseOptions(context))
+--- a/lib/rules/no-unsupported-features/node-builtins.js
++++ b/lib/rules/no-unsupported-features/node-builtins.js
+@@ -329,8 +329,11 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/no-unsupported-features/node-builtins.md",
+         },
+-        type: "problem",
+         fixable: null,
++        messages: {
++            unsupported:
++                "The '{{name}}' is not supported until Node.js {{supported}}. The configured version range is '{{version}}'.",
++        },
+         schema: [
+             {
+                 type: "object",
+@@ -354,10 +357,7 @@
+                 additionalProperties: false,
+             },
+         ],
+-        messages: {
+-            unsupported:
+-                "The '{{name}}' is not supported until Node.js {{supported}}. The configured version range is '{{version}}'.",
+-        },
++        type: "problem",
+     },
+     create(context) {
+         return {
+--- a/lib/rules/prefer-global/buffer.js
++++ b/lib/rules/prefer-global/buffer.js
+@@ -28,15 +28,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/buffer.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"buffer\").Buffer'. Use the global variable 'Buffer' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'Buffer'. Use 'require(\"buffer\").Buffer' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/console.js
++++ b/lib/rules/prefer-global/console.js
+@@ -25,15 +25,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/console.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"console\")'. Use the global variable 'console' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'console'. Use 'require(\"console\")' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/process.js
++++ b/lib/rules/prefer-global/process.js
+@@ -25,15 +25,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/process.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"process\")'. Use the global variable 'process' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'process'. Use 'require(\"process\")' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/text-decoder.js
++++ b/lib/rules/prefer-global/text-decoder.js
+@@ -28,15 +28,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/text-decoder.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"util\").TextDecoder'. Use the global variable 'TextDecoder' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'TextDecoder'. Use 'require(\"util\").TextDecoder' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/text-encoder.js
++++ b/lib/rules/prefer-global/text-encoder.js
+@@ -28,15 +28,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/text-encoder.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"util\").TextEncoder'. Use the global variable 'TextEncoder' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'TextEncoder'. Use 'require(\"util\").TextEncoder' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/url-search-params.js
++++ b/lib/rules/prefer-global/url-search-params.js
+@@ -28,15 +28,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/url-search-params.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"url\").URLSearchParams'. Use the global variable 'URLSearchParams' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'URLSearchParams'. Use 'require(\"url\").URLSearchParams' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/prefer-global/url.js
++++ b/lib/rules/prefer-global/url.js
+@@ -27,15 +27,15 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/prefer-global/url.md",
+         },
+-        type: "suggestion",
+         fixable: null,
+-        schema: [{ enum: ["always", "never"] }],
+         messages: {
+             preferGlobal:
+                 "Unexpected use of 'require(\"url\").URL'. Use the global variable 'URL' instead.",
+             preferModule:
+                 "Unexpected use of the global variable 'URL'. Use 'require(\"url\").URL' instead.",
+         },
++        schema: [{ enum: ["always", "never"] }],
++        type: "suggestion",
+     },
+ 
+     create(context) {
+--- a/lib/rules/process-exit-as-throw.js
++++ b/lib/rules/process-exit-as-throw.js
+@@ -153,9 +153,9 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/process-exit-as-throw.md",
+         },
+-        type: "problem",
+         fixable: null,
+         schema: [],
++        type: "problem",
+         supported: CodePathAnalyzer != null,
+     },
+     create() {
+--- a/lib/rules/shebang.js
++++ b/lib/rules/shebang.js
+@@ -75,7 +75,6 @@
+             url:
+                 "https://github.com/mysticatea/eslint-plugin-node/blob/v11.1.0/docs/rules/shebang.md",
+         },
+-        type: "problem",
+         fixable: "code",
+         schema: [
+             {
+@@ -87,6 +86,7 @@
+                 additionalProperties: false,
+             },
+         ],
++        type: "problem",
+     },
+     create(context) {
+         const sourceCode = context.getSourceCode()

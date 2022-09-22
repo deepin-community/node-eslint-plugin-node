@@ -1,0 +1,15 @@
+Test-Command: node -e "require('eslint-plugin-node');"
+Depends:
+ node-eslint-plugin-node,
+ nodejs,
+Restrictions: superficial
+
+Test-Command:
+ sed -i -e 'require("\.\./\.\./\.\./lib/rules/([^"]+)"),require("eslint-plugin-requirejs").rules.\1;,' tests/lib/*/*.js
+ && mocha --reporter tap 'tests/lib/**/*.js'
+Depends:
+ mocha,
+ node-eslint,
+ node-eslint-plugin-es,
+ node-eslint-plugin-node,
+ node-mysticatea-eslint-plugin,

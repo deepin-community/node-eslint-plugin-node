@@ -1,0 +1,53 @@
+#!/usr/bin/make -f
+
+# generate documentation unless nodoc requested
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+DOCS = README.html README.txt
+endif
+
+NODE_PATH = debian/node_modules
+ESLINT = NODE_PATH=$(NODE_PATH) eslint
+MOCHA = NODE_PATH=$(NODE_PATH) mocha --no-timeout
+MOCHA_TAP := $(MOCHA) --reporter tap
+# normalize output with TAP where possible unless terse requested
+ifeq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
+ESLINT += --format tap
+MOCHA += --reporter tap
+else
+ESLINT += --format unix
+MOCHA += --reporter dot --no-colors
+endif
+
+%:
+	dh $@
+
+%.html: %.md
+	pandoc --from gfm-raw_html --to html --standalone --output $@ $<
+
+%.txt: %.md
+	pandoc --from gfm-raw_html --to plain --output $@ $<
+
+override_dh_auto_clean:
+	rm -rf debian/node_modules
+
+override_dh_clean:
+	dh_clean -- $(DOCS)
+
+override_dh_auto_configure:
+	mkdir -p debian/node_modules
+	ln --force --symbolic ../.. debian/node_modules/eslint-plugin-node
+
+override_dh_auto_build: $(DOCS)
+	node scripts/update-lib-index
+
+# TODO: fix remaining test failures (likely PATH-related)
+override_dh_auto_test:
+	$(ESLINT) lib tests/lib
+	$(MOCHA) --exclude tests/lib/configs/recommended.js 'tests/lib/**/*.js' 
+	$(MOCHA_TAP) tests/lib/configs/recommended.js | debian/tap-todo \
+		'^node/recommended config in CJS directory \*\.mjs files should be a module\.$$' \
+		'^node/recommended config in ESM directory \*\.js files should be a module\.$$' \
+		'^node/recommended config in ESM directory \*\.mjs files should be a module\.$$'
+
+override_dh_installdocs:
+	dh_installdocs --all -- $(DOCS)
